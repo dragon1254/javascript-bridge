@@ -1,5 +1,15 @@
+import controller from "./domain/controller/controller";
+
 class App {
-  play() {}
+#controller
+
+  constructor(){
+    this.#controller = new controller();  
+  }
+
+  async play() {
+    await this.#controller.run();
+  }
 }
 
 module.exports = App;
