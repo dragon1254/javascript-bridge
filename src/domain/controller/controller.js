@@ -1,13 +1,17 @@
+import Console from "@woowacourse/mission-utils/src/console";
 import InputView from "../../InputView";
+import Random from "@woowacourse/mission-utils/src/random";
+import BridgeRandomNumberGenerator from "../../BridgeRandomNumberGenerator";
+import BridgeGame from "../../BridgeGame";
 
 class controller{
-#sizeBridge
+#arrayBridgeSize=[]
 
 #playerOX
 
 #regame
 
-#try
+#takeTry = 0;
 
     constructor(){
     
@@ -18,11 +22,21 @@ class controller{
     }
 
     getbridge(){
-        this.inputNumbers();
-        BridgeMaker.makeBridge()
+        const size = InputView.readBridgeSize();
+        // for(let i = 0; i< size; i++){
+        //     const randomNumber = BridgeRandomNumberGenerator.generate();
+        //     this.#arrayBridgeSize.push(randomNumber)
+        // }
+        this.#arrayBridgeSize = BridgeMaker.makeBridge(size, BridgeRandomNumberGenerator.generate());
     }
     playGame(){
-        this.#try++
+        this.#takeTry++
+        const newGame = new BridgeGame()
+        const repeat = true;
+        while(repeat === true){
+            newGame.move(this.#takeTry,this.#arrayBridgeSize,repeat);
+        }
+
         // 플레이어가 입력값 받음/ 그 입력값이 형식에 맞는지 확인하고 안 맞으면 다시 받음
         // 다리길이배열의 인덱스 값 === this.#try-1일 때 플레이어 입력값과 배열값이 같은가 확인
         // u일때 yes이면 [ o ] no이면 [ x ] 프린트 하고 결과값 저장. 프린트는 기존에 있던것에 이어서 프린트
@@ -41,11 +55,6 @@ class controller{
     }
 
 
-    inputNumbers(){
-        const temporarySizeBridge = InputView.readBridgeSize();
-        // 여기에서 validate 클래스 만들어야 함
-        this.sizeBridge = validate(temporarySizeBridge);
-    }
     
 
 
