@@ -1,6 +1,7 @@
 import Console from "@woowacourse/mission-utils/src/console";
 import informMessage from "./domain/constant/message";
 import validateUpdown from "./domain/validate/valitdateUpdown";
+import OutputView from "./OutputView";
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
@@ -11,7 +12,7 @@ class BridgeGame {
    * <p>
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  move(taketry, arrayBridgeSize) {
+  move(taketry, arrayBridgeSize,repeat) {
     Console.readLine(informMessage.move,(upAndDown)=>{
       try {
         const checkUpAndDown = new validateUpdown();
@@ -21,19 +22,19 @@ class BridgeGame {
         return this.move();
       }
       if(arrayBridgeSize[taketry-1] === getUpDown){
-        this.winGame()
+        this.winGame(taketry, upAndDown, repeat)
       }
       if(arrayBridgeSize[taketry-1] !== getUpDown){
-        this.loseGame()
+        this.loseGame(taketry, upAndDown, repeat)
       }
     })
   }
 
-  winGame(){
-
+  winGame(taketry, upAndDown, repeat){
+    OutputView.printMap(taketry, upAndDown)
   }
 
-  loseGame(){
+  loseGame(taketry, upAndDown, repeat){
 
   }
 
